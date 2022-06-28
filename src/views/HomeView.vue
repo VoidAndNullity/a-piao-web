@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div style="height: 188px"></div>
+    <!-- 搜索logo -->
+    <div class="searchImg">
+      <img :src="searchImg" alt="" height="100%" />
+    </div>
 
     <!-- <mu-chip class="demo-chip" color="blue300">
       <mu-avatar text-color="blue300" color="indigo900" :size="32"
@@ -33,6 +36,36 @@
         </svg>
       </mu-button>
     </div>
+
+    <!-- 切换 -->
+    <ul class="menus">
+      <li>
+        <mu-button icon>
+          <svg class="icon" style="color: red" aria-hidden="true">
+            <use xlink:href="#icon-sousuo"></use>
+          </svg>
+        </mu-button>
+      </li>
+      <li>
+        <mu-button icon>
+          <svg class="icon" style="color: red" aria-hidden="true">
+            <use xlink:href="#icon-sousuo"></use>
+          </svg>
+        </mu-button>
+      </li>
+      <li>
+        <mu-button icon>
+          <svg class="icon" style="color: red" aria-hidden="true">
+            <use xlink:href="#icon-sousuo"></use>
+          </svg>
+        </mu-button>
+      </li>
+    </ul>
+    <!-- <mu-button icon>
+      <svg class="icon" style="color: red" aria-hidden="true">
+        <use xlink:href="#icon-sousuo"></use>
+      </svg>
+    </mu-button> -->
   </div>
 </template>
 
@@ -45,6 +78,8 @@ export default {
       searchBoxOneCss: true,
       searchBoxTwoCss: false,
       searchContent: "",
+      searchImg:
+        "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
     };
   },
   mounted() {
@@ -55,10 +90,9 @@ export default {
       this.searchBoxOneCss = !this.searchBoxOneCss;
       this.searchBoxTwoCss = !this.searchBoxTwoCss;
     },
-    search: function () {
-      window.open(
-        "https://kaifa.baidu.com/searchPage?wd=" + this.searchContent
-      );
+    search: function (url) {
+      // "https://kaifa.baidu.com/searchPage?wd=" + this.searchContent;
+      window.open(url + this.searchContent);
     },
     getList: function () {
       this.$progress.start();
@@ -82,6 +116,15 @@ export default {
 </script>
 
 <style lang="less">
+.searchImg {
+  // height: 188px;
+  height: 60%;
+  min-height: 185px;
+  max-height: 310px;
+  position: relative;
+  z-index: 0;
+  text-align: center;
+}
 input {
   background: none;
   outline: none;
@@ -115,10 +158,10 @@ input:focus {
 }
 .searchBoxOneCss {
   border-radius: 50px;
-  background: #e0e0e0;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  background: #f0f0f0;
+  // box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
   .searchButton {
-    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    box-shadow: -20px -20px 60px #ffffff;
     .icon {
       font-size: 22px;
     }
@@ -140,6 +183,18 @@ input:focus {
   .mu-button {
     margin: 8px;
     vertical-align: top;
+  }
+}
+.menus {
+  list-style: none;
+  position: fixed;
+  right: 2%;
+  top: 2%;
+  li {
+    margin-top: 10%;
+    border-radius: 50%;
+    background: #f3f3f3;
+    box-shadow: 33px 33px 67px #cad1d7, -33px -33px 67px #ffffff;
   }
 }
 </style>
