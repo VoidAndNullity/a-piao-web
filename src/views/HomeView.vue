@@ -1,98 +1,70 @@
 <template>
   <div>
+    <!-- 背景 -->
+    <vue-canvas-nest
+      style="background-color: #e6eef4"
+      :config="backgroundConfig"
+    ></vue-canvas-nest>
+    <!-- 头部 -->
+    <my-header></my-header>
     <!-- 搜索logo -->
     <div class="searchImg">
       <img :src="searchImg" alt="" height="100%" />
     </div>
 
-    <!-- <mu-chip class="demo-chip" color="blue300">
-      <mu-avatar text-color="blue300" color="indigo900" :size="32"
-        >MB</mu-avatar
-      >
-      custom chip
-    </mu-chip> -->
-
-    <div
-      :class="{
-        searchBox: true,
-        searchBoxOneCss: searchBoxOneCss,
-        searchBoxTwoCss: searchBoxTwoCss,
-      }"
-    >
+    <div class="searchBox">
       <!-- 搜索框 -->
       <input
         type="text"
         class="searchText"
         v-model="searchContent"
-        @blur="blurAndfocus"
-        @focus="blurAndfocus"
         @keyup.enter="search"
       />
 
       <!-- 搜索图标 -->
       <mu-button flat class="searchButton" color="blue" @click="search">
-        <svg class="icon" style="color: red" aria-hidden="true">
+        <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-sousuo"></use>
         </svg>
       </mu-button>
     </div>
 
-    <!-- 切换 -->
-    <ul class="menus">
-      <li>
-        <mu-button icon>
-          <svg class="icon" style="color: red" aria-hidden="true">
-            <use xlink:href="#icon-sousuo"></use>
-          </svg>
-        </mu-button>
-      </li>
-      <li>
-        <mu-button icon>
-          <svg class="icon" style="color: red" aria-hidden="true">
-            <use xlink:href="#icon-sousuo"></use>
-          </svg>
-        </mu-button>
-      </li>
-      <li>
-        <mu-button icon>
-          <svg class="icon" style="color: red" aria-hidden="true">
-            <use xlink:href="#icon-sousuo"></use>
-          </svg>
-        </mu-button>
-      </li>
-    </ul>
-    <!-- <mu-button icon>
-      <svg class="icon" style="color: red" aria-hidden="true">
-        <use xlink:href="#icon-sousuo"></use>
-      </svg>
-    </mu-button> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import vueCanvasNest from "vue-canvas-nest";
+import myHeader from "./header.vue";
 
 export default {
   data() {
     return {
-      searchBoxOneCss: true,
-      searchBoxTwoCss: false,
       searchContent: "",
-      searchImg:
-        "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+      searchImg: "",
+      // 背景参数
+      backgroundConfig: {
+        // 线条颜色
+        color: "0,0,0",
+        // 线条透明度
+        opacity: 0.7,
+        // 背景优先级
+        zIndex: -1,
+        // 行数
+        count: 99,
+      },
     };
   },
+  components: { vueCanvasNest, myHeader },
   mounted() {
     this.getList();
   },
   methods: {
-    blurAndfocus: function () {
-      this.searchBoxOneCss = !this.searchBoxOneCss;
-      this.searchBoxTwoCss = !this.searchBoxTwoCss;
-    },
     search: function (url) {
+      // this.$progress.start();
       // "https://kaifa.baidu.com/searchPage?wd=" + this.searchContent;
       window.open(url + this.searchContent);
+      // this.$progress.done();
     },
     getList: function () {
       this.$progress.start();
@@ -115,16 +87,8 @@ export default {
 };
 </script>
 
-<style lang="less">
-.searchImg {
-  // height: 188px;
-  height: 60%;
-  min-height: 185px;
-  max-height: 310px;
-  position: relative;
-  z-index: 0;
-  text-align: center;
-}
+<style scoped lang="less">
+// 去掉input框默认样式
 input {
   background: none;
   outline: none;
@@ -133,68 +97,49 @@ input {
 input:focus {
   border: none;
 }
-.searchText {
-  width: 80%;
-  height: 100%;
-  color: #676767;
-  margin-top: 0px;
-  vertical-align: top;
-  padding-left: 10px;
+
+// 搜索框上面的图
+.searchImg {
+  height: 60%;
+  min-height: 185px;
+  max-height: 310px;
+  position: relative;
+  z-index: 0;
+  text-align: center;
 }
+
+// 搜索框
 .searchBox {
   margin: 0 auto;
   height: 44px;
   max-width: 584px;
+  border-radius: 50px;
+  background: #e6eef4;
+  box-shadow: 6px 6px 12px #cad1d7, -6px -6px 12px #ffffff;
+  .searchText {
+    width: 80%;
+    height: 100%;
+    color: #676767;
+    vertical-align: top;
+    padding-left: 10px;
+  }
   .searchButton {
     width: 20%;
     height: 100%;
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
-    .icon {
-      font-size: 22px;
-      transition: 0.5s;
-    }
-  }
-}
-.searchBoxOneCss {
-  border-radius: 50px;
-  background: #f0f0f0;
-  // box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  .searchButton {
     box-shadow: -20px -20px 60px #ffffff;
     .icon {
       font-size: 22px;
+      transition: 0.2s;
     }
   }
-}
-.searchBoxTwoCss {
-  border-radius: 50px;
-  background: #ffffff;
-  box-shadow: inset 20px 20px 60px #e0e0e0, inset -20px -20px 60px #ffffff;
-  .searchButton {
-    box-shadow: inset 20px 20px 60px #e0e0e0, inset -20px -20px 60px #ffffff;
+  .searchButton:hover {
     .icon {
       font-size: 28px;
     }
   }
 }
-.button-wrapper {
-  text-align: center;
-  .mu-button {
-    margin: 8px;
-    vertical-align: top;
-  }
-}
-.menus {
-  list-style: none;
-  position: fixed;
-  right: 2%;
-  top: 2%;
-  li {
-    margin-top: 10%;
-    border-radius: 50%;
-    background: #f3f3f3;
-    box-shadow: 33px 33px 67px #cad1d7, -33px -33px 67px #ffffff;
-  }
-}
+
+
 </style>

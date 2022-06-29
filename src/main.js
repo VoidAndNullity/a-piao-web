@@ -19,5 +19,31 @@ Vue.use(MuseUI);
 new Vue({
   router,
   store,
+  beforeCreate(){
+    NProgress.start();
+    console.log("beforeCreate");
+  },
+  created(){
+    console.log("created");
+  },
+  beforeMount(){
+    console.log("beforeMount");
+  },
+  mounted(){
+    console.log("mounted");
+    NProgress.done();
+  },
+  beforeUpdate(){
+    console.log("beforeUpdate");
+  },
+  updated(){
+    console.log("updated");
+  },
+  beforeDestroy(){
+    console.log("beforeDestroy");
+  },
+  deactivated(){
+    console.log("deactivated");
+  },
   render: h => h(App)
 }).$mount('#app')
