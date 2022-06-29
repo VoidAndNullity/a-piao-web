@@ -63,7 +63,7 @@ export default {
     search: function (url) {
       // this.$progress.start();
       // "https://kaifa.baidu.com/searchPage?wd=" + this.searchContent;
-      window.open(url + this.searchContent);
+      window.open("https://kaifa.baidu.com/searchPage?wd=" + this.searchContent);
       // this.$progress.done();
     },
     getList: function () {
