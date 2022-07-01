@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-appbar style="width: 100%" color="#34495e">
+    <mu-appbar style="width: 100%" color="#34495e" textColor="#fff">
       <mu-button icon slot="left">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-drxx89"></use>
