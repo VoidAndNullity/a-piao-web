@@ -2,11 +2,13 @@
   <div>
     <mu-appbar style="width: 100%" color="#34495e">
       <mu-button icon slot="left">
-        <mu-icon value="menu"></mu-icon>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-drxx89"></use>
+        </svg>
       </mu-button>
-      Title
+      阿飘
       <mu-menu slot="right">
-        <mu-button flat>MENU</mu-button>
+        <mu-button flat>留言</mu-button>
         <mu-list slot="content">
           <mu-list-item button>
             <mu-list-item-content>

@@ -15,6 +15,7 @@
     <div class="searchBox">
       <!-- 搜索框 -->
       <input
+        ref="searchInput"
         type="text"
         class="searchText"
         v-model="searchContent"
@@ -58,6 +59,8 @@ export default {
   components: { vueCanvasNest, myHeader },
   mounted() {
     this.getList();
+    // 自动聚焦
+    this.$refs.searchInput.focus();
   },
   methods: {
     search: function (url) {
