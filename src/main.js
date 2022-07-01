@@ -6,13 +6,15 @@ import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 import '@/assets/icon/iconfont.js';
 import  '@/config/vue-axios'
-
 // 加载进度条插件
 import 'muse-ui-progress/dist/muse-ui-progress.css';
 import NProgress from 'muse-ui-progress';
+// elementui
+import 'element-ui/lib/theme-chalk/index.css';
+import elementui from './elementui/index.js';
+
 Vue.use(NProgress);
-
-
+Vue.use(elementui);
 Vue.config.productionTip = false
 Vue.use(MuseUI);
 
