@@ -2,8 +2,8 @@
 import { Button, Select } from 'element-ui'
 const element = {
   install: function (Vue) {
-    Vue.use(Button)
-    Vue.use(Select)
+    Vue.use(Button);
+    Vue.use(Select);
   }
 }
 export default element

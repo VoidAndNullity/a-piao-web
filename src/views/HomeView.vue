@@ -17,8 +17,10 @@
       <input
         ref="searchInput"
         type="text"
-        class="searchText"
+        :class="{searchText:true,searchTextBackground:isSearchTextBackground}"
         v-model="searchContent"
+        @focus="isSearchTextBackground = true"
+        @blur="isSearchTextBackground = false"
         @keyup.enter="search"
       />
 
@@ -30,6 +32,46 @@
       </mu-button>
     </div>
 
+    <!-- 切换搜索引擎 -->
+    <div class="searchEngine">
+      <!-- <el-button @click="show3 = !show3">Click Me</el-button> -->
+      <svg
+        :class="{
+          icon: true,
+          searchEngineIconOpen: !show3,
+          searchEngineIconClose: show3,
+        }"
+        aria-hidden="true"
+        @click="show3 = !show3"
+      >
+        <use xlink:href="#icon-zhiwen"></use>
+      </svg>
+
+      <div style="height: 200px">
+        <el-collapse-transition>
+          <div v-show="show3">
+            <!-- 谷歌 -->
+            <div class="transition-box">
+              <svg
+                class="icon"
+                aria-hidden="true"
+                @click="url = 'https://www.google.com/search?q='"
+              >
+                <use xlink:href="#icon-google-circle-fill"></use>
+              </svg>
+              <!-- 百度 -->
+              <svg
+                class="icon"
+                aria-hidden="true"
+                @click="url = 'https://www.baidu.com/baidu?wd='"
+              >
+                <use xlink:href="#icon-baidu"></use>
+              </svg>
+            </div>
+          </div>
+        </el-collapse-transition>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -41,8 +83,12 @@ import myHeader from "./header.vue";
 export default {
   data() {
     return {
+      // 搜索内容
       searchContent: "",
+      show3: false,
       searchImg: "",
+      isSearchTextBackground: false,
+      url: "https://www.baidu.com/baidu?wd=",
       // 背景参数
       backgroundConfig: {
         // 线条颜色
@@ -52,7 +98,7 @@ export default {
         // 背景优先级
         zIndex: -1,
         // 行数
-        count: 99,
+        count: 66,
       },
     };
   },
@@ -63,10 +109,10 @@ export default {
     this.$refs.searchInput.focus();
   },
   methods: {
-    search: function (url) {
+    search: function () {
       // this.$progress.start();
       // "https://kaifa.baidu.com/searchPage?wd=" + this.searchContent;
-      window.open("https://kaifa.baidu.com/searchPage?wd=" + this.searchContent);
+      window.open(this.url + this.searchContent);
       // this.$progress.done();
     },
     getList: function () {
@@ -86,6 +132,9 @@ export default {
       //   console.log(resp);
       // });
     },
+    // searchUrl: function (url) {
+    //   console.log(event,"========");
+    // },
   },
 };
 </script>
@@ -117,7 +166,7 @@ input:focus {
   height: 44px;
   max-width: 584px;
   border-radius: 50px;
-  background: #e6eef4;
+  background-color: #e6eef4;
   box-shadow: 6px 6px 12px #cad1d7, -6px -6px 12px #ffffff;
   .searchText {
     width: 80%;
@@ -125,6 +174,11 @@ input:focus {
     color: #676767;
     vertical-align: top;
     padding-left: 10px;
+  }
+  .searchTextBackground {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: rgb(241, 241, 241);
   }
   .searchButton {
     width: 20%;
@@ -144,5 +198,76 @@ input:focus {
   }
 }
 
+// 切换搜素引擎css
+.searchEngine {
+  margin-top: 10px;
+  text-align: center;
+  .transition-box {
+    height: 100px;
+    background-color: #fff;
+    box-shadow: inset 0px 2px 7px #d9d9d9, inset 0px 0px 25px #ffffff;
+    line-height: 100px;
+    .icon {
+      font-size: 32px;
+    }
+    .icon:not(:first-child) {
+      margin-left: 18px;
+    }
+  }
+  // 默认状态下的动画
+  .searchEngineIconOpen {
+    font-size: 32px;
+    animation: change 3s infinite reverse;
+  }
+  .searchEngineIconOpen:hover {
+    animation: changeTwo 3s infinite reverse;
+  }
 
+  @keyframes change {
+    0% {
+      color: #d9d9d9;
+    }
+    50% {
+      color: #4bdaf0;
+    }
+    100% {
+      color: #d9d9d9;
+    }
+  }
+  @keyframes changeTwo {
+    0% {
+      color: #4bdaf0;
+    }
+    100% {
+      color: #4bdaf0;
+    }
+  }
+  // 打开状态下的动画
+  .searchEngineIconClose {
+    font-size: 32px;
+    animation: changeClose 3s infinite reverse;
+  }
+  .searchEngineIconClose:hover {
+    animation: changeCloseTwo 3s infinite reverse;
+  }
+  @keyframes changeClose {
+    0% {
+      color: #d9d9d9;
+    }
+    50% {
+      color: #a91e1e;
+    }
+    100% {
+      color: #d9d9d9;
+    }
+  }
+  @keyframes changeCloseTwo {
+    0% {
+      color: #a91e1e;
+    }
+    100% {
+      color: #a91e1e;
+    }
+  }
+}
 </style>
