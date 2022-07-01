@@ -1,50 +1,53 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import MuseUI from 'muse-ui';
-import 'muse-ui/dist/muse-ui.css';
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import '@/config/vue-axios';
+// 阿里iconfont
 import '@/assets/icon/iconfont.js';
-import  '@/config/vue-axios'
 // 加载进度条插件
 import 'muse-ui-progress/dist/muse-ui-progress.css';
 import NProgress from 'muse-ui-progress';
 // elementui
 import 'element-ui/lib/theme-chalk/index.css';
 import elementui from './elementui/index.js';
+// museui
+import 'muse-ui/lib/styles/base.less';
+import 'muse-ui/lib/styles/theme.less';
+import museui from './museui/index.js';
 
 Vue.use(NProgress);
 Vue.use(elementui);
-Vue.config.productionTip = false
-Vue.use(MuseUI);
+Vue.use(museui);
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  beforeCreate(){
+  beforeCreate() {
     NProgress.start();
     console.log("beforeCreate");
   },
-  created(){
+  created() {
     console.log("created");
   },
-  beforeMount(){
+  beforeMount() {
     console.log("beforeMount");
   },
-  mounted(){
+  mounted() {
     console.log("mounted");
     NProgress.done();
   },
-  beforeUpdate(){
+  beforeUpdate() {
     console.log("beforeUpdate");
   },
-  updated(){
+  updated() {
     console.log("updated");
   },
-  beforeDestroy(){
+  beforeDestroy() {
     console.log("beforeDestroy");
   },
-  deactivated(){
+  deactivated() {
     console.log("deactivated");
   },
   render: h => h(App)
