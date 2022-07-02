@@ -1,9 +1,8 @@
 // element ui 按需引入
-import { Button, Select } from 'element-ui'
+import { Tooltip } from 'element-ui'
 const element = {
   install: function (Vue) {
-    Vue.use(Button);
-    Vue.use(Select);
+    Vue.use(Tooltip);
   }
 }
 export default element

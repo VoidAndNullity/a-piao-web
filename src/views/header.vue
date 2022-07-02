@@ -34,7 +34,7 @@
         :right="position === 'right'"
         width="50%"
       >
-        <mu-list>
+        <!-- <mu-list>
           <mu-list-item button>
             <mu-list-item-title>Menu Item 1</mu-list-item-title>
           </mu-list-item>
@@ -44,7 +44,7 @@
           <mu-list-item @click="open = false" button>
             <mu-list-item-title>Close</mu-list-item-title>
           </mu-list-item>
-        </mu-list>
+        </mu-list> -->
       </mu-drawer>
     </mu-container>
   </div>

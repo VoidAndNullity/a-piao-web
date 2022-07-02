@@ -17,7 +17,10 @@
       <input
         ref="searchInput"
         type="text"
-        :class="{searchText:true,searchTextBackground:isSearchTextBackground}"
+        :class="{
+          searchText: true,
+          searchTextBackground: isSearchTextBackground,
+        }"
         v-model="searchContent"
         @focus="isSearchTextBackground = true"
         @blur="isSearchTextBackground = false"
@@ -34,7 +37,6 @@
 
     <!-- 切换搜索引擎 -->
     <div class="searchEngine">
-      <!-- <el-button @click="show3 = !show3">Click Me</el-button> -->
       <svg
         :class="{
           icon: true,
@@ -52,26 +54,60 @@
           <div v-show="show3">
             <!-- 谷歌 -->
             <div class="transition-box">
-              <svg
-                class="icon"
-                aria-hidden="true"
-                @click="url = 'https://www.google.com/search?q='"
+              <!-- <mu-tooltip v-for="url in urls.urls" :key="url.urlName" :content="url.urlName"> -->
+              <el-tooltip
+                v-for="url in urls.urls"
+                :key="url.urlName"
+                :content="url.urlName"
+                placement="bottom"
+                effect="light"
               >
-                <use xlink:href="#icon-google-circle-fill"></use>
-              </svg>
+                <svg
+                  class="icon"
+                  aria-hidden="true"
+                  @click="searchUrl(url.urlName, url.url)"
+                >
+                  <use :xlink:href="'#icon-' + url.icon"></use>
+                </svg>
+              </el-tooltip>
+              <!-- </mu-tooltip> -->
+
+              <!-- <mu-tooltip content="切换谷歌">
+                <svg
+                  class="icon"
+                  aria-hidden="true"
+                  @click="searchUrl('谷歌','https://www.google.com/search?q=')"
+                >
+                  <use xlink:href="#icon-google-circle-fill"></use>
+                </svg>
+              </mu-tooltip> -->
               <!-- 百度 -->
-              <svg
-                class="icon"
-                aria-hidden="true"
-                @click="url = 'https://www.baidu.com/baidu?wd='"
-              >
-                <use xlink:href="#icon-baidu"></use>
-              </svg>
+              <!-- <mu-tooltip content="切换百度">
+                <svg
+                  class="icon"
+                  aria-hidden="true"
+                  @click="searchUrl('百度','https://www.baidu.com/baidu?wd=')"
+                >
+                  <use xlink:href="#icon-baidu"></use>
+                </svg>
+              </mu-tooltip> -->
             </div>
           </div>
         </el-collapse-transition>
       </div>
     </div>
+
+    <!-- 提示框 -->
+    <mu-snackbar :position="normal.position" :open.sync="normal.open">
+      {{ normal.message }}
+      <mu-button
+        flat
+        slot="action"
+        color="secondary"
+        @click="normal.open = false"
+        >关闭</mu-button
+      >
+    </mu-snackbar>
   </div>
 </template>
 
@@ -84,6 +120,7 @@ export default {
   data() {
     return {
       // 搜索内容
+      urls: {},
       searchContent: "",
       show3: false,
       searchImg: "",
@@ -100,6 +137,12 @@ export default {
         // 行数
         count: 66,
       },
+      normal: {
+        position: "bottom-start",
+        message: "",
+        open: false,
+        timeout: 3000,
+      },
     };
   },
   components: { vueCanvasNest, myHeader },
@@ -112,13 +155,18 @@ export default {
     search: function () {
       // this.$progress.start();
       // "https://kaifa.baidu.com/searchPage?wd=" + this.searchContent;
+      console.log(this.url, this.searchContent);
       window.open(this.url + this.searchContent);
       // this.$progress.done();
     },
     getList: function () {
       this.$progress.start();
       this.axios.get("../../json/list.json").then((data) => {
-        console.info(data);
+        let vo = data.data;
+        if (vo.code === 200) {
+          this.urls = vo.data;
+        }
+        console.info(this.urls);
         this.$progress.done();
       });
       // this.axios({
@@ -132,9 +180,20 @@ export default {
       //   console.log(resp);
       // });
     },
-    // searchUrl: function (url) {
-    //   console.log(event,"========");
-    // },
+    // 切换搜索引擎
+    searchUrl: function (urlName, url) {
+      this.url = url;
+      this.normal.message = "已切换至" + urlName;
+      this.openNormalSnackbar();
+    },
+    // 提示框
+    openNormalSnackbar() {
+      if (this.normal.timer) clearTimeout(this.normal.timer);
+      this.normal.open = true;
+      this.normal.timer = setTimeout(() => {
+        this.normal.open = false;
+      }, this.normal.timeout);
+    },
   },
 };
 </script>
@@ -209,9 +268,16 @@ input:focus {
     line-height: 100px;
     .icon {
       font-size: 32px;
+      transition: 0.2s;
     }
     .icon:not(:first-child) {
       margin-left: 18px;
+    }
+    .icon:hover {
+      color: #5cb8c6;
+    }
+    .icon:active {
+      color: #4bdaf0;
     }
   }
   // 默认状态下的动画

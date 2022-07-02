@@ -1,25 +1,24 @@
-
 {
-    "success": true, 	  
-    "code": 200, 	   
-    "message": "成功",   
+    "success": true,
+    "code": 200,
+    "message": "成功",
     "data": {
-        "urls":[
+        "urls": [
             {
-                "urlName":"百度搜索",
-                "url":"https://www.baidu.com/baidu?tn=",
-                "urlImg":""
+                "urlName": "百度搜索",
+                "url": "https://www.baidu.com/baidu?wd=",
+                "icon": "baidu"
             },
             {
-                "urlName":"开发者搜索",
-                "url":"https://kaifa.baidu.com/searchPage?wd=",
-                "urlImg":""
+                "urlName": "开发者搜索",
+                "url": "https://kaifa.baidu.com/searchPage?wd=",
+                "icon":"baidu"
             },
             {
-                "urlName":"Google搜索",
-                "url":"https://www.google.com/search?q=",
-                "urlImg":""
+                "urlName": "Google搜索",
+                "url": "https://www.google.com/search?q=",
+                "icon":"google-circle-fill"
             }
         ]
-    }          
-  }
+    }
+}
