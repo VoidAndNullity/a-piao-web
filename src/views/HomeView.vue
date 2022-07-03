@@ -17,6 +17,7 @@
       <input
         ref="searchInput"
         type="text"
+        :placeholder="normal.message+'...'"
         :class="{
           searchText: true,
           searchTextBackground: isSearchTextBackground,
@@ -99,7 +100,7 @@
 
     <!-- 提示框 -->
     <mu-snackbar :position="normal.position" :open.sync="normal.open">
-      {{ normal.message }}
+      {{ "已切换至" + normal.message }}
       <mu-button
         flat
         slot="action"
@@ -119,8 +120,8 @@ import myHeader from "./header.vue";
 export default {
   data() {
     return {
-      // 搜索内容
       urls: {},
+      // 搜索内容
       searchContent: "",
       show3: false,
       searchImg: "",
@@ -139,7 +140,7 @@ export default {
       },
       normal: {
         position: "bottom-start",
-        message: "",
+        message: "百度搜索",
         open: false,
         timeout: 3000,
       },
@@ -183,7 +184,7 @@ export default {
     // 切换搜索引擎
     searchUrl: function (urlName, url) {
       this.url = url;
-      this.normal.message = "已切换至" + urlName;
+      this.normal.message = urlName;
       this.openNormalSnackbar();
     },
     // 提示框
