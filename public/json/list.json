@@ -6,18 +6,21 @@
         "urls": [
             {
                 "urlName": "百度搜索",
-                "url": "https://www.baidu.com/baidu?wd=",
+                "url": "https://www.baidu.com/baidu",
+                "searchMode": "wd",
                 "icon": "baidu"
             },
             {
                 "urlName": "开发者搜索",
-                "url": "https://kaifa.baidu.com/searchPage?wd=",
-                "icon":"baidu"
+                "url": "https://kaifa.baidu.com/searchPage",
+                "searchMode": "wd",
+                "icon": "baidu"
             },
             {
                 "urlName": "Google搜索",
-                "url": "https://www.google.com/search?q=",
-                "icon":"google-circle-fill"
+                "url": "https://www.google.com/search",
+                "searchMode": "q",
+                "icon": "google-circle-fill"
             }
         ]
     }

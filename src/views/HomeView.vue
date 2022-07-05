@@ -8,33 +8,47 @@
     <!-- 头部 -->
     <my-header></my-header>
     <!-- 搜索logo -->
-    <div class="searchImg">
-      <img :src="searchImg" alt="" height="100%" />
-    </div>
+    <div class="searchImg"></div>
 
-    <div class="searchBox">
-      <!-- 搜索框 -->
+    <!-- 解决回车键被浏览器拦截打开新窗口的行为 -->
+    <form :action="url" ref="form" method="get" target="_blank">
+      <div class="searchBox">
+        <!-- 搜索框 -->
+        <input
+          ref="searchInput"
+          type="text"
+          :placeholder="normal.message + '...'"
+          :class="{
+            searchText: true,
+            searchTextBackground: isSearchTextBackground,
+          }"
+          v-model="searchContent"
+          @focus="isSearchTextBackground = true"
+          @blur="isSearchTextBackground = false"
+        />
+
+        <!-- 搜索图标 -->
+        <mu-button
+          ref="searchButton"
+          flat
+          class="searchButton"
+          color="blue"
+          @click="search()"
+        >
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-sousuo"></use>
+          </svg>
+        </mu-button>
+      </div>
+
       <input
-        ref="searchInput"
         type="text"
-        :placeholder="normal.message+'...'"
-        :class="{
-          searchText: true,
-          searchTextBackground: isSearchTextBackground,
-        }"
-        v-model="searchContent"
-        @focus="isSearchTextBackground = true"
-        @blur="isSearchTextBackground = false"
-        @keyup.enter="search"
+        :name="searchMode"
+        :value="searchContent"
+        style="display: none"
       />
-
-      <!-- 搜索图标 -->
-      <mu-button flat class="searchButton" color="blue" @click="search">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-sousuo"></use>
-        </svg>
-      </mu-button>
-    </div>
+      <button type="submit" style="display: none"></button>
+    </form>
 
     <!-- 切换搜索引擎 -->
     <div class="searchEngine">
@@ -55,7 +69,6 @@
           <div v-show="show3">
             <!-- 谷歌 -->
             <div class="transition-box">
-              <!-- <mu-tooltip v-for="url in urls.urls" :key="url.urlName" :content="url.urlName"> -->
               <el-tooltip
                 v-for="url in urls.urls"
                 :key="url.urlName"
@@ -66,32 +79,11 @@
                 <svg
                   class="icon"
                   aria-hidden="true"
-                  @click="searchUrl(url.urlName, url.url)"
+                  @click="searchUrl(url.urlName, url.url, url.searchMode)"
                 >
                   <use :xlink:href="'#icon-' + url.icon"></use>
                 </svg>
               </el-tooltip>
-              <!-- </mu-tooltip> -->
-
-              <!-- <mu-tooltip content="切换谷歌">
-                <svg
-                  class="icon"
-                  aria-hidden="true"
-                  @click="searchUrl('谷歌','https://www.google.com/search?q=')"
-                >
-                  <use xlink:href="#icon-google-circle-fill"></use>
-                </svg>
-              </mu-tooltip> -->
-              <!-- 百度 -->
-              <!-- <mu-tooltip content="切换百度">
-                <svg
-                  class="icon"
-                  aria-hidden="true"
-                  @click="searchUrl('百度','https://www.baidu.com/baidu?wd=')"
-                >
-                  <use xlink:href="#icon-baidu"></use>
-                </svg>
-              </mu-tooltip> -->
             </div>
           </div>
         </el-collapse-transition>
@@ -124,9 +116,10 @@ export default {
       // 搜索内容
       searchContent: "",
       show3: false,
-      searchImg: "",
       isSearchTextBackground: false,
-      url: "https://www.baidu.com/baidu?wd=",
+      url: "https://www.baidu.com/baidu",
+      // 搜索方式
+      searchMode: "wd",
       // 背景参数
       backgroundConfig: {
         // 线条颜色
@@ -154,11 +147,17 @@ export default {
   },
   methods: {
     search: function () {
-      // this.$progress.start();
-      // "https://kaifa.baidu.com/searchPage?wd=" + this.searchContent;
-      console.log(this.url, this.searchContent);
-      window.open(this.url + this.searchContent);
-      // this.$progress.done();
+      window.open(this.url + "?" + this.searchMode + "=" + this.searchContent);
+    },
+    openurl: function (url) {
+      alert(1);
+      var a = document.createElement("a");
+      a.setAttribute("href", url);
+      a.setAttribute("style", "display:none");
+      a.setAttribute("target", "_blank");
+      document.body.appendChild(a);
+      a.click();
+      a.parentNode.removeChild(a);
     },
     getList: function () {
       this.$progress.start();
@@ -182,8 +181,9 @@ export default {
       // });
     },
     // 切换搜索引擎
-    searchUrl: function (urlName, url) {
+    searchUrl: function (urlName, url, searchMode) {
       this.url = url;
+      this.searchMode = searchMode;
       this.normal.message = urlName;
       this.openNormalSnackbar();
     },
