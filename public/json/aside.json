@@ -1,0 +1,60 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "成功",
+    "data": {
+        "resources": [
+            {
+                "title": "第一个",
+                "resource": [
+                    {
+                        "img":"",
+                        "title":"",
+                        "depict":"",
+                        "url":""
+                    },
+                    {
+                        "img":"",
+                        "title":"",
+                        "depict":"",
+                        "url":""
+                    }
+                ]
+            },
+            {
+                "title": "第二个",
+                "resource": [
+                    {
+                        "img":"",
+                        "title":"",
+                        "depict":"",
+                        "url":""
+                    },
+                    {
+                        "img":"",
+                        "title":"",
+                        "depict":"",
+                        "url":""
+                    }
+                ]
+            },
+            {
+                "title": "第三个",
+                "resource": [
+                    {
+                        "img":"",
+                        "title":"",
+                        "depict":"",
+                        "url":""
+                    },
+                    {
+                        "img":"",
+                        "title":"",
+                        "depict":"",
+                        "url":""
+                    }
+                ]
+            }
+        ]
+    }
+}

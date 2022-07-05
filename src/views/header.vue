@@ -88,6 +88,7 @@ export default {
       docked: false,
       open: false,
       position: "left",
+      responseData:[]
     };
   },
   components: {},
@@ -95,6 +96,13 @@ export default {
   methods: {
     asideIsOpen: function () {
       this.open = !this.open;
+      this.axios.get("../../json/aside.json").then((data) => {
+        let vo = data.data;
+        if (vo.code === 200) {
+          this.responseData = vo.data;
+        }
+        console.info(this.responseData);
+      });
       // this.$store.commit("asideIsOpen");
     },
   },
