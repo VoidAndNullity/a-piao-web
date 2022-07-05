@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- 背景 -->
-    <vue-canvas-nest
+    <!-- <vue-canvas-nest
       style="background-color: #e6eef4"
       :config="backgroundConfig"
-    ></vue-canvas-nest>
+    ></vue-canvas-nest> -->
     <!-- 头部 -->
     <my-header></my-header>
     <!-- 搜索logo -->
@@ -17,18 +17,20 @@
         <input
           ref="searchInput"
           type="text"
+          autocomplete="off"
+          :name="searchMode"
           :placeholder="normal.message + '...'"
           :class="{
             searchText: true,
             searchTextBackground: isSearchTextBackground,
           }"
-          v-model="searchContent"
           @focus="isSearchTextBackground = true"
           @blur="isSearchTextBackground = false"
         />
 
         <!-- 搜索图标 -->
         <mu-button
+          type="submit"
           ref="searchButton"
           flat
           class="searchButton"
@@ -41,13 +43,7 @@
         </mu-button>
       </div>
 
-      <input
-        type="text"
-        :name="searchMode"
-        :value="searchContent"
-        style="display: none"
-      />
-      <button type="submit" style="display: none"></button>
+      <!-- <button type="submit" style="display: none"></button> -->
     </form>
 
     <!-- 切换搜索引擎 -->
@@ -106,15 +102,12 @@
 
 <script>
 // @ is an alias to /src
-import vueCanvasNest from "vue-canvas-nest";
 import myHeader from "./header.vue";
 
 export default {
   data() {
     return {
       urls: {},
-      // 搜索内容
-      searchContent: "",
       show3: false,
       isSearchTextBackground: false,
       url: "https://www.baidu.com/baidu",
@@ -139,16 +132,16 @@ export default {
       },
     };
   },
-  components: { vueCanvasNest, myHeader },
+  components: {  myHeader },
   mounted() {
     this.getList();
     // 自动聚焦
     this.$refs.searchInput.focus();
   },
   methods: {
-    search: function () {
-      window.open(this.url + "?" + this.searchMode + "=" + this.searchContent);
-    },
+    // search: function () {
+    //   window.open(this.url + "?" + this.searchMode + "=" + this.searchContent);
+    // },
     openurl: function (url) {
       alert(1);
       var a = document.createElement("a");
