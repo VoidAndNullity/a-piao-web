@@ -3,9 +3,6 @@
     <!-- 头部 -->
     <mu-appbar style="width: 100%" color="#34495e">
       <mu-button icon slot="left" @click="asideIsOpen">
-        <!-- <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-drxx89"></use>
-        </svg> -->
         <img src="../assets/img/apiao.png" width="190%" alt="" />
       </mu-button>
       <span style="font-size: 18px; margin-left: 0%">阿飘~</span>
@@ -34,48 +31,82 @@
         :right="position === 'right'"
         width="50%"
       >
-        <el-row :gutter="12">
-          <el-divider content-position="left">第一个</el-divider>
-          <el-col :span="8">
-            <mu-card-header title="Myron Avatar" sub-title="sub title">
-              <mu-avatar slot="avatar">
-                <img src="../assets/img/apiao.png" />
-              </mu-avatar>
-            </mu-card-header>
-          </el-col>
-          <el-col :span="8">
-            <mu-card-header title="Myron Avatar" sub-title="sub title">
-              <mu-avatar slot="avatar">
-                <img src="../assets/img/apiao.png" />
-              </mu-avatar>
-            </mu-card-header>
-          </el-col>
-          <el-col :span="8">
-            <mu-card-header title="Myron Avatar" sub-title="sub title">
-              <mu-avatar slot="avatar">
-                <img src="../assets/img/apiao.png" />
-              </mu-avatar>
-            </mu-card-header>
-          </el-col>
-          <el-col :span="8">
-            <mu-card-header title="Myron Avatar" sub-title="sub title">
-              <mu-avatar slot="avatar">
-                <img src="../assets/img/apiao.png" />
-              </mu-avatar>
-            </mu-card-header>
-          </el-col>
-        </el-row>
-        <!-- <mu-list>
-          <mu-list-item button>
-            <mu-list-item-title>Menu Item 1</mu-list-item-title>
-          </mu-list-item>
-          <mu-list-item button>
-            <mu-list-item-title>Menu Item 2</mu-list-item-title>
-          </mu-list-item>
-          <mu-list-item @click="open = false" button>
-            <mu-list-item-title>Close</mu-list-item-title>
-          </mu-list-item>
-        </mu-list> -->
+        <el-skeleton :loading="loading" animated :count="2" :throttle="50">
+          <template slot="template">
+            <el-row :gutter="12">
+              <el-divider content-position="left">加载中...</el-divider>
+              <div
+                class="el-col el-col-8"
+                style="
+                  padding-left: 6px;
+                  padding-right: 6px;
+                  min-width: 240px;
+                  max-height: 79px;
+                "
+                v-for="i in 9"
+                :key="i"
+              >
+                <div class="mu-card-header">
+                  <div
+                    class="mu-avatar"
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      font-size: 20px;
+                      background: rgb(255, 255, 255);
+                    "
+                  >
+                    <div class="mu-avatar-inner">
+                      <el-skeleton-item
+                        variant="img"
+                        style="width: 40px; height: 40px"
+                      />
+                    </div>
+                  </div>
+                  <div class="mu-card-header-title">
+                    <div class="mu-card-title">
+                      <el-skeleton-item
+                        variant="text"
+                        style="width: 60px; height: 14px"
+                      />
+                    </div>
+                    <div class="mu-card-sub-title">
+                      <el-skeleton-item
+                        variant="text"
+                        style="width: 146px; height: 13px"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </el-row>
+          </template>
+          <template>
+            <el-row
+              :gutter="12"
+              v-for="(data, i) in responseData.resources"
+              :key="i"
+            >
+              <el-divider content-position="left">{{ data.title }}</el-divider>
+              <el-col
+                style="min-width: 240px; max-height: 79px"
+                :span="8"
+                v-for="(change, j) in data.resource"
+                :key="j"
+              >
+                <mu-card-header
+                  :title="change.title"
+                  :sub-title="change.depict"
+                  @click="winOpen(change.url)"
+                >
+                  <mu-avatar style="background: #ffffff" slot="avatar">
+                    <img :src="change.img" />
+                  </mu-avatar>
+                </mu-card-header>
+              </el-col>
+            </el-row>
+          </template>
+        </el-skeleton>
       </mu-drawer>
     </mu-container>
   </div>
@@ -88,22 +119,28 @@ export default {
       docked: false,
       open: false,
       position: "left",
-      responseData:[]
+      loading: true,
+      responseData: [],
     };
   },
   components: {},
   mounted() {},
   methods: {
     asideIsOpen: function () {
+      this.loading = true;
       this.open = !this.open;
       this.axios.get("../../json/aside.json").then((data) => {
         let vo = data.data;
         if (vo.code === 200) {
           this.responseData = vo.data;
+          this.loading = false;
         }
         console.info(this.responseData);
       });
       // this.$store.commit("asideIsOpen");
+    },
+    winOpen: function (url) {
+      window.open(url);
     },
   },
 };

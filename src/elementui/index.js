@@ -5,7 +5,9 @@ import {
   Col,
   Card,
   Divider,
-  Avatar
+  Avatar,
+  Skeleton,
+  SkeletonItem
 } from 'element-ui'
 const element = {
   install: function (Vue) {
@@ -15,6 +17,8 @@ const element = {
     // Vue.use(Card);
     Vue.use(Divider);
     Vue.use(Avatar);
+    Vue.use(Skeleton);
+    Vue.use(SkeletonItem);
   }
 }
 export default element

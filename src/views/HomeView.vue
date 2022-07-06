@@ -263,6 +263,7 @@ input:focus {
     .icon {
       font-size: 32px;
       transition: 0.2s;
+      color: #666;
     }
     .icon:not(:first-child) {
       margin-left: 18px;
