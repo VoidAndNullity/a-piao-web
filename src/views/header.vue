@@ -5,7 +5,7 @@
       <mu-button icon slot="left" @click="asideIsOpen">
         <img src="../assets/img/apiao.png" width="190%" alt="" />
       </mu-button>
-      <span style="font-size: 18px; margin-left: 0%">阿飘~111</span>
+      <span style="font-size: 18px; margin-left: 0%">阿飘~</span>
       <mu-menu slot="right">
         <mu-button flat>待添加</mu-button>
         <mu-list slot="content">
