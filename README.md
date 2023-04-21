@@ -1,6 +1,16 @@
 # a-piao-web
 
+网站链接：https://www.apiao.eu.org
+
+github+vercel+cloudflare搭建
+
+```
+github+vercel用于部署项目, 有新的提交后可自动构建部署
+cloudflare用于解析域名
+```
+
 ## Project setup
+
 ```
 npm install
 ```

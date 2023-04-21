@@ -113,8 +113,6 @@
 </template>
 
 <script>
-import asidejson from '@/data/aside.json'
-
 export default {
   data() {
     return {
@@ -131,14 +129,14 @@ export default {
     asideIsOpen: function () {
       this.loading = true;
       this.open = !this.open;
-      // this.axios.get(asidejson).then((data) => {
-        let vo = asidejson;
+      this.$requests.get('/menu-list.json').then((data) => {
+        let vo = data;
         if (vo.code === 200) {
           this.responseData = vo.data;
           this.loading = false;
         }
         console.info(this.responseData);
-      // });
+      });
       // this.$store.commit("asideIsOpen");
     },
     winOpen: function (url) {

@@ -8,8 +8,9 @@ Vue.use(VueAxios, axios)
 
 // 创建 axios 实例
 const requests = axios.create({
-    // baseURL: process.env.VUE_APP_API, // 基础url,如果是多环境配置这样写，也可以像下面一行的写死。
-    baseURL: 'http://127.0.0.1:8080',
+     // 基础url,如果是多环境配置这样写
+    // baseURL: process.env.VUE_APP_API,
+    baseURL: 'https://raw.githubusercontent.com/VoidAndNullity/a-piao-api/master/data',
     timeout: 6000 // 请求超时时间
 })
 
@@ -33,6 +34,4 @@ requests.interceptors.response.use((response) => {
     return res
 }, err)
 
-export default {
-    requests
-}
+export default requests

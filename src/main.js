@@ -5,7 +5,7 @@ import store from './store'
 import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 import '@/assets/icon/iconfont.js';
-import  '@/config/vue-axios'
+import requests from '@/config/vue-axios'
 // 加载进度条插件
 import 'muse-ui-progress/dist/muse-ui-progress.css';
 import nProgressConfig from './museui/nProgressConfig.js';
@@ -24,6 +24,8 @@ Vue.use(NProgress,nProgressConfig);
 Vue.use(elementui);
 Vue.config.productionTip = false
 Vue.use(MuseUI);
+// Vue.use(requests);
+Vue.prototype.$requests = requests;
 
 new Vue({
   router,
