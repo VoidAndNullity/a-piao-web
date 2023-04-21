@@ -103,6 +103,7 @@
 <script>
 // @ is an alias to /src
 import myHeader from "./header.vue";
+import listjson from '@/data/list.json'
 
 export default {
   data() {
@@ -154,14 +155,14 @@ export default {
     },
     getList: function () {
       this.$progress.start();
-      this.axios.get("../../json/list.json").then((data) => {
-        let vo = data.data;
+      // this.axios.get(listjson).then((data) => {
+        let vo = listjson;
         if (vo.code === 200) {
           this.urls = vo.data;
         }
         console.info(this.urls);
         this.$progress.done();
-      });
+      // });
       // this.axios({
       //   method: "get",
       //   url: "/src/json/list.json",
