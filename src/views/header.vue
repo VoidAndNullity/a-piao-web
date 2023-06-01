@@ -6,7 +6,7 @@
         <img src="../assets/img/apiao.png" width="190%" alt="" />
       </mu-button>
       <span style="font-size: 18px; margin-left: 0%">阿飘~</span>
-      <mu-menu slot="right">
+      <!-- <mu-menu slot="right">
         <mu-button flat>待添加</mu-button>
         <mu-list slot="content">
           <mu-list-item button>
@@ -20,7 +20,7 @@
             </mu-list-item-content>
           </mu-list-item>
         </mu-list>
-      </mu-menu>
+      </mu-menu> -->
     </mu-appbar>
     <!-- 侧边 -->
     <mu-container>
@@ -84,23 +84,23 @@
           <template>
             <el-row
               :gutter="12"
-              v-for="(data, i) in responseData.resources"
+              v-for="(data, i) in responseData"
               :key="i"
             >
               <el-divider content-position="left">{{ data.title }}</el-divider>
               <el-col
                 style="min-width: 240px; max-height: 79px"
                 :span="8"
-                v-for="(change, j) in data.resource"
+                v-for="(change, j) in data.data"
                 :key="j"
               >
                 <mu-card-header
                   :title="change.title"
-                  :sub-title="change.depict"
+                  :sub-title="change.desc"
                   @click="winOpen(change.url)"
                 >
                   <mu-avatar style="background: #ffffff" slot="avatar">
-                    <img :src="change.img" />
+                    <img :src="change.favicon_url" />
                   </mu-avatar>
                 </mu-card-header>
               </el-col>
@@ -119,6 +119,7 @@ export default {
       docked: false,
       open: false,
       position: "left",
+      // 骨架
       loading: true,
       responseData: [],
     };
@@ -129,9 +130,9 @@ export default {
     asideIsOpen: function () {
       this.loading = true;
       this.open = !this.open;
-      this.$requests.get('/menu-list.json').then((data) => {
+      this.$requests.get('/get_menus').then((data) => {
         let vo = data;
-        if (vo.code === 200) {
+        if (vo.success) {
           this.responseData = vo.data;
           this.loading = false;
         }

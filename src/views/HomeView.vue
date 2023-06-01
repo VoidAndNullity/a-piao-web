@@ -66,16 +66,16 @@
             <!-- 谷歌 -->
             <div class="transition-box">
               <el-tooltip
-                v-for="url in urls.urls"
-                :key="url.urlName"
-                :content="url.urlName"
+                v-for="url in urls"
+                :key="url.url"
+                :content="url.desc"
                 placement="bottom"
                 effect="light"
               >
                 <svg
                   class="icon"
                   aria-hidden="true"
-                  @click="searchUrl(url.urlName, url.url, url.searchMode)"
+                  @click="searchUrl(url.desc, url.url, url.searchMode)"
                 >
                   <use :xlink:href="'#icon-' + url.icon"></use>
                 </svg>
@@ -109,9 +109,9 @@ export default {
       urls: {},
       show3: false,
       isSearchTextBackground: false,
-      url: "https://www.baidu.com/baidu",
+      url: "https://cn.bing.com/search",
       // 搜索方式
-      searchMode: "wd",
+      searchMode: "q",
       // 背景参数
       backgroundConfig: {
         // 线条颜色
@@ -125,7 +125,7 @@ export default {
       },
       normal: {
         position: "bottom-start",
-        message: "百度搜索",
+        message: "Bing搜索",
         open: false,
         timeout: 3000,
       },
@@ -153,9 +153,9 @@ export default {
     },
     getList: function () {
       this.$progress.start();
-      this.$requests.get('/search-engines.json').then((data) => {
+      this.$requests.get('/get_searchs').then((data) => {
         let vo = data;
-        if (vo.code === 200) {
+        if (vo.success) {
           this.urls = vo.data;
         }
         console.info(this.urls);
