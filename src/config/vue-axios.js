@@ -10,7 +10,7 @@ Vue.use(VueAxios, axios)
 const requests = axios.create({
      // 基础url,如果是多环境配置这样写
     // baseURL: process.env.VUE_APP_API,
-    baseURL: 'https://a-piao-api-py.vercel.app/api',
+    baseURL: 'https://www.keydo.eu.org/api',
     timeout: 6000 // 请求超时时间
 })
 
