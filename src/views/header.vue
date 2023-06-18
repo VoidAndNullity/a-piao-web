@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <mu-appbar style="width: 100%" color="#34495e">
       <mu-button icon slot="left" @click="asideIsOpen">
-        <img src="../assets/img/apiao.png" width="190%" alt="" />
+        <img src="@/assets/img/apiao.png" width="190%" alt="" />
       </mu-button>
       <span style="font-size: 18px; margin-left: 0%">阿飘~</span>
       <!-- <mu-menu slot="right">
@@ -23,7 +23,6 @@
       </mu-menu> -->
     </mu-appbar>
     <!-- 侧边 -->
-
     <el-drawer
       class="aside"
       :visible.sync="open"
@@ -84,15 +83,13 @@
         <template>
           <el-row :gutter="12" v-for="(data, i) in responseData" :key="i">
             <el-divider content-position="left">{{ data.title }}</el-divider>
-
             <el-col
               v-for="change in data.data"
               :key="change.url"
               style="min-width: 240px; max-height: 79px"
               :span="8"
             >
-              <el-tooltip
-                placement="bottom">
+              <el-tooltip :disabled="!open" placement="bottom">
                 <template slot="content">
                   <p style="max-width: 200px" v-text="change.desc"></p>
                 </template>
@@ -101,9 +98,19 @@
                   :sub-title="change.desc"
                   @click="winOpen(change.url)"
                 >
-                  <mu-avatar style="background: #ffffff" slot="avatar">
+                  <!-- <mu-avatar style="background: #ffffff" slot="avatar">
                     <img :src="change.favicon_url" />
-                  </mu-avatar>
+                  </mu-avatar> -->
+                  <el-avatar
+                  style="background: #ffffff; margin-right: 12px;"
+                    :src="change.favicon_url"
+                    @error="errorHandler"
+                    slot="avatar"
+                  >
+                    <img
+                      src="@/assets/img/jiazaishibai.png"
+                    />
+                  </el-avatar>
                 </mu-card-header>
               </el-tooltip>
             </el-col>
@@ -111,92 +118,6 @@
         </template>
       </el-skeleton>
     </el-drawer>
-
-    <!--<mu-container>
-      <mu-drawer
-        class="aside"
-        :open.sync="open"
-        :docked="docked"
-        :right="position === 'right'"
-        width="50%"
-      >
-        <el-skeleton :loading="loading" animated :count="2" :throttle="50">
-          <template slot="template">
-            <el-row :gutter="12">
-              <el-divider content-position="left">加载中...</el-divider>
-              <div
-                class="el-col el-col-8"
-                style="
-                  padding-left: 6px;
-                  padding-right: 6px;
-                  min-width: 240px;
-                  max-height: 79px;
-                "
-                v-for="i in 9"
-                :key="i"
-              >
-                <div class="mu-card-header">
-                  <div
-                    class="mu-avatar"
-                    style="
-                      width: 40px;
-                      height: 40px;
-                      font-size: 20px;
-                      background: rgb(255, 255, 255);
-                    "
-                  >
-                    <div class="mu-avatar-inner">
-                      <el-skeleton-item
-                        variant="img"
-                        style="width: 40px; height: 40px"
-                      />
-                    </div>
-                  </div>
-                  <div class="mu-card-header-title">
-                    <div class="mu-card-title">
-                      <el-skeleton-item
-                        variant="text"
-                        style="width: 60px; height: 14px"
-                      />
-                    </div>
-                    <div class="mu-card-sub-title">
-                      <el-skeleton-item
-                        variant="text"
-                        style="width: 146px; height: 13px"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </el-row>
-          </template>
-          <template>
-            <el-row :gutter="12" v-for="(data, i) in responseData" :key="i">
-              <el-divider content-position="left">{{ data.title }}</el-divider>
-
-              <el-tooltip
-                v-for="change in data.data"
-                :key="change.url"
-                content="11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
-                placement="bottom"
-              >
-                <el-col style="min-width: 240px; max-height: 79px" :span="8">
-                  <mu-card-header
-                    :title="change.title"
-                    :sub-title="change.desc"
-                    @click="winOpen(change.url)"
-                  >
-                    <mu-avatar style="background: #ffffff" slot="avatar">
-                      <img :src="change.favicon_url" />
-                    </mu-avatar>
-                  </mu-card-header>
-                </el-col>
-              </el-tooltip>
-            </el-row>
-          </template>
-        </el-skeleton>
-      </mu-drawer>
-    </mu-container>-->
   </div>
 </template>
 
@@ -230,6 +151,9 @@ export default {
     },
     winOpen: function (url) {
       window.open(url);
+    },
+    errorHandler() {
+      return true;
     },
   },
 };
