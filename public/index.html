@@ -1,49 +1,53 @@
+<!DOCTYPE html>
+<html lang="">
 
-  <!DOCTYPE html>
-  <html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="./favicon.png">
+  <link rel="stylesheet" type="text/css" href="myLoading.css">
+  <title>阿飘</title>
+  <style>
+    html,
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="myLoading.css">
-    <title>DengLS的网站</title>
-    <style>
-      html,
-      * {
-        padding: 0px;
-        margin: 0px;
-      }
+    .icon {
+      width: 1em;
+      height: 1em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+  </style>
+</head>
 
-      .icon {
-        width: 1em;
-        height: 1em;
-        vertical-align: -0.15em;
-        fill: currentColor;
-        overflow: hidden;
-      }
-
-    </style>
-  </head>
-
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
-          Please enable it to continue.</strong>
-    </noscript>
-    <div id="app">
-      <div style="height: 100vh;background: #34495e;display: flex;justify-content: center;align-items: center;">
-        <div class="myLoading">
-          <span>Loading...</span>
-        </div>
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <div id="app">
+    <div style="height: 100vh;background: #34495e;display: flex;justify-content: center;align-items: center;">
+      <div class="myLoading">
+        <span>Loading...</span>
       </div>
     </div>
-    <!-- built files will be auto injected -->
-    <script type="text/javascript" src="./ribbon.js"></script>
-    <script>
-      new Ribbons();
-    </script>
-  </body>
+  </div>
+  <!-- built files will be auto injected -->
+  <script type="text/javascript" src="./ribbon.js"></script>
+  <script>
+    new Ribbons();
+    window.onblur = function () {
+      document.title = "꒰ᐢ⸝⸝•༝•⸝⸝ᐢ꒱​ 阿飘等你哟~";
+    };
+    window.onfocus = function () {
+      document.title = "阿飘";
+    }
+  </script>
+</body>
 
-  </html>
+</html>

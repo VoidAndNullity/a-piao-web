@@ -65,21 +65,33 @@
           <div v-show="show3">
             <!-- 谷歌 -->
             <div class="transition-box">
-              <el-tooltip
-                v-for="url in urls"
-                :key="url.url"
-                :content="url.desc"
-                placement="bottom"
-                effect="light"
-              >
-                <svg
-                  class="icon"
-                  aria-hidden="true"
-                  @click="searchUrl(url.desc, url.url, url.searchMode)"
-                >
-                  <use :xlink:href="'#icon-' + url.icon"></use>
-                </svg>
-              </el-tooltip>
+              <el-skeleton :loading="loading" animated :count="3" :throttle="50">
+                <template slot="template">
+                  <div style="background: #ffffff;width: 32px; height: 32px;margin:9px;" class="el-avatar el-avatar--circle">
+                    <el-skeleton-item
+                      variant="img"
+                      style="width: 32px; height: 32px"
+                    />
+                  </div>
+                </template>
+                <template>
+                  <el-tooltip
+                    v-for="url in urls"
+                    :key="url.url"
+                    :content="url.desc"
+                    placement="bottom"
+                    effect="light"
+                  >
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      @click="searchUrl(url.desc, url.url, url.searchMode)"
+                    >
+                      <use :xlink:href="'#icon-' + url.icon"></use>
+                    </svg>
+                  </el-tooltip>
+                </template>
+              </el-skeleton>
             </div>
           </div>
         </el-collapse-transition>
@@ -129,9 +141,11 @@ export default {
         open: false,
         timeout: 3000,
       },
+      // 骨架
+      loading: true
     };
   },
-  components: {  myHeader },
+  components: { myHeader },
   mounted() {
     this.getList();
     // 自动聚焦
@@ -153,9 +167,10 @@ export default {
     },
     getList: function () {
       this.$progress.start();
-      this.$requests.get('/get_searchs').then((data) => {
+      this.$requests.get("/get_searchs").then((data) => {
         let vo = data;
         if (vo.success) {
+          this.loading = !this.loading;
           this.urls = vo.data;
         }
         console.info(this.urls);
@@ -256,17 +271,20 @@ input:focus {
   text-align: center;
   .transition-box {
     height: 100px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     background-color: #fff;
     box-shadow: inset 0px 2px 7px #d9d9d9, inset 0px 0px 25px #ffffff;
-    line-height: 100px;
     .icon {
       font-size: 32px;
       transition: 0.2s;
       color: #666;
+      margin: 9px;
     }
-    .icon:not(:first-child) {
-      margin-left: 18px;
-    }
+    // .icon:not(:first-child) {
+    //   margin-left: 18px;
+    // }
     .icon:hover {
       color: #5cb8c6;
     }
@@ -274,7 +292,7 @@ input:focus {
       color: #4bdaf0;
     }
   }
-  // 默认状态下的动画
+  // 默认状态下指纹动画
   .searchEngineIconOpen {
     font-size: 32px;
     animation: change 3s infinite reverse;
@@ -302,7 +320,7 @@ input:focus {
       color: #4bdaf0;
     }
   }
-  // 打开状态下的动画
+  // 打开状态下指纹动画
   .searchEngineIconClose {
     font-size: 32px;
     animation: changeClose 3s infinite reverse;

@@ -5,7 +5,7 @@
       <mu-button icon slot="left" @click="asideIsOpen">
         <img src="@/assets/img/apiao.png" width="190%" alt="" />
       </mu-button>
-      <span style="font-size: 18px; margin-left: 0%">阿飘~</span>
+      <span style="font-size: 18px; margin-left: 0%">阿飘</span>
       <!-- <mu-menu slot="right">
         <mu-button flat>待添加</mu-button>
         <mu-list slot="content">
@@ -30,7 +30,7 @@
       direction="ltr"
       :with-header="false"
     >
-      <el-skeleton :loading="loading" animated :count="2" :throttle="50">
+      <el-skeleton :loading="loading" animated :count="1" :throttle="50">
         <template slot="template">
           <el-row :gutter="12">
             <el-divider content-position="left">加载中...</el-divider>
@@ -55,7 +55,7 @@
                     background: rgb(255, 255, 255);
                   "
                 >
-                  <div class="mu-avatar-inner">
+                  <div class="el-avatar el-avatar--circle">
                     <el-skeleton-item
                       variant="img"
                       style="width: 40px; height: 40px"
@@ -98,9 +98,6 @@
                   :sub-title="change.desc"
                   @click="winOpen(change.url)"
                 >
-                  <!-- <mu-avatar style="background: #ffffff" slot="avatar">
-                    <img :src="change.favicon_url" />
-                  </mu-avatar> -->
                   <el-avatar
                   style="background: #ffffff; margin-right: 12px;"
                     :src="change.favicon_url"
